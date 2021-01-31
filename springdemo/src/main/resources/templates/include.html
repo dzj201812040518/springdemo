@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--头部-->
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>Dongzijie-site</title>
+    <link rel="stylesheet" th:href="@{/lib/layui/css/layui.css}" media="all">
+    <link th:href="@{/index/css/index_style.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/xingxing/css/style.css}">
+</head>
+<!--顶部导航-->
+<div th:fragment="header">
+    <ul class="layui-nav">
+        <li class="layui-nav-item"><a th:href="@{/}">首页</a></li>
+        <li class="layui-nav-item"><a th:href="@{/xingxing}">模板管理</a></li>
+    </ul>
+</div>
+<!--引入脚本-->
+<div th:fragment="footer">
+    <!--layui-->
+    <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+    <!--jquery-->
+    <script type="text/javascript" th:src="@{/lib/jquery/jquery.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/xingxing/js/TweenMax.min.js}"></script>
+    <script type="text/javascript" th:src="@{/xingxing/js/index.js}"></script>
+
+    <script>
+        layui.use('element', function () {
+            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+            //监听导航点击
+            element.on('nav(demo)', function (elem) {
+                //console.log(elem)
+                layer.msg(elem.text());
+            });
+        });
+
+
+        auto();
+        function auto() {
+            var $liNav = $('.layui-nav-item');
+            //获取请求路径
+            var href = window.location.pathname;
+            //判断路径与请求路径相同的URL
+            $liNav.each(function () {
+                if (href === $(this).find("a").attr("href")){
+                    //有就动态追加样式
+                    $(this).addClass('layui-this');
+                };
+            });
+        }
+    </script>
+</div>
+
+</html>

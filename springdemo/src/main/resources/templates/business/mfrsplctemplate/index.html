@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    .layui-inline {
+        margin-right: 20px;
+    }
+</style>
+<div class="demoTable">
+    模板名称：
+    <div class="layui-inline">
+        <input class="layui-input" name="tempName" id="tempName" autocomplete="off">
+    </div>
+    信号模板编号：
+    <div class="layui-inline">
+        <input class="layui-input" name="plcCode" id="plcCode" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
+<table class="layui-hide" id="mfrsplctemplate"></table>
+<script>
+    var prefix = '/business/mfrsplctemplate';
+    layui.use('table', function () {
+        var table = layui.table;
+        table.render({
+            elem: '#mfrsplctemplate'
+            , url: prefix + '/list'
+            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            , cols: [
+                [
+                    {field: 'plctempId', title: '信号模板ID', sort: true, align: 'center'},
+                    {field: 'tempName', title: '模板名称', align: 'center'},
+                    {field: 'plcCode', title: '信号模板编号', sort: true, align: 'center'},
+                    {field: 'plcType', title: '信号类型编号', align: 'center'},
+                    {field: 'siteId', title: '当前站点ID', align: 'center'},
+                    {field: 'registerLowercase', title: '寄存器', sort: true, align: 'center'},
+                    {field: 'createBy', title: '创建人', sort: true, align: 'center'},
+                    {field: 'createTime', title: '创建时间', align: 'center'},
+                    {field: 'regex', title: '随机范围', align: 'center'},
+                ]
+            ],
+            page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                , groups: 5 //只显示 1 个连续页码
+                // , first: true //不显示首页
+                // , last: false //不显示尾页
+            },
+            id: 'plcTable'
+        });
+
+
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var tempName = $('#tempName');
+
+                //执行重载
+                table.reload('plcTable', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        tempName: tempName.val()
+                    }
+                }, 'data');
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+</html>

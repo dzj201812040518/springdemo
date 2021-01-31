@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzj.demo.project.business.mfrsplctemplate.mapper.MfrsPlctemplateMapper">
+  <resultMap id="BaseResultMap" type="com.dzj.demo.project.business.mfrsplctemplate.model.MfrsPlctemplate">
+    <id column="plctemp_id" jdbcType="INTEGER" property="plctempId" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="modbus" jdbcType="INTEGER" property="modbus" />
+    <result column="refe_key" jdbcType="INTEGER" property="refeKey" />
+    <result column="register_lowercase" jdbcType="VARCHAR" property="registerLowercase" />
+    <result column="plc_code" jdbcType="VARCHAR" property="plcCode" />
+    <result column="temp_name" jdbcType="VARCHAR" property="tempName" />
+    <result column="plc_type" jdbcType="INTEGER" property="plcType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="mfrs_id" jdbcType="INTEGER" property="mfrsId" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="regex" jdbcType="VARCHAR" property="regex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    plctemp_id, site_id, modbus, refe_key, register_lowercase, plc_code, temp_name, plc_type, 
+    remark, mfrs_id, `status`, del_flag, create_by, create_time, update_by, update_time, 
+    regex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mfrs_plctemplate
+    where plctemp_id = #{plctempId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectBySelectiveList" parameterType="com.dzj.demo.project.business.mfrsplctemplate.model.MfrsPlctemplate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mfrs_plctemplate
+    <where>
+      <if test="siteId != null">
+        and site_id = #{siteId,jdbcType=INTEGER}
+      </if>
+      <if test="modbus != null">
+        and modbus = #{modbus,jdbcType=INTEGER}
+      </if>
+      <if test="refeKey != null">
+        and refe_key = #{refeKey,jdbcType=INTEGER}
+      </if>
+      <if test="registerLowercase != null">
+        and register_lowercase = #{registerLowercase,jdbcType=VARCHAR}
+      </if>
+      <if test="plcCode != null">
+        and plc_code = #{plcCode,jdbcType=VARCHAR}
+      </if>
+      <if test="tempName != null and tempName != ''">
+        and temp_name like concat('%',#{tempName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="plcType != null">
+        and plc_type = #{plcType,jdbcType=INTEGER}
+      </if>
+      <if test="remark != null">
+        and remark = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="mfrsId != null">
+        and mfrs_id = #{mfrsId,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and `status` = #{status,jdbcType=CHAR}
+      </if>
+      <if test="delFlag != null">
+        and del_flag = #{delFlag,jdbcType=CHAR}
+      </if>
+      <if test="createBy != null">
+        and create_by = #{createBy,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateBy != null">
+        and update_by = #{updateBy,jdbcType=VARCHAR}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="regex != null">
+        and regex = #{regex,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mfrs_plctemplate
+    where plctemp_id = #{plctempId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="plctemp_id" keyProperty="plctempId" parameterType="com.dzj.demo.project.business.mfrsplctemplate.model.MfrsPlctemplate" useGeneratedKeys="true">
+    insert into mfrs_plctemplate (site_id, modbus, refe_key, 
+      register_lowercase, plc_code, temp_name, 
+      plc_type, remark, mfrs_id, 
+      `status`, del_flag, create_by, 
+      create_time, update_by, update_time, 
+      regex)
+    values (#{siteId,jdbcType=INTEGER}, #{modbus,jdbcType=INTEGER}, #{refeKey,jdbcType=INTEGER}, 
+      #{registerLowercase,jdbcType=VARCHAR}, #{plcCode,jdbcType=VARCHAR}, #{tempName,jdbcType=VARCHAR}, 
+      #{plcType,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{mfrsId,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{regex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="plctemp_id" keyProperty="plctempId" parameterType="com.dzj.demo.project.business.mfrsplctemplate.model.MfrsPlctemplate" useGeneratedKeys="true">
+    insert into mfrs_plctemplate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="modbus != null">
+        modbus,
+      </if>
+      <if test="refeKey != null">
+        refe_key,
+      </if>
+      <if test="registerLowercase != null">
+        register_lowercase,
+      </if>
+      <if test="plcCode != null">
+        plc_code,
+      </if>
+      <if test="tempName != null">
+        temp_name,
+      </if>
+      <if test="plcType != null">
+        plc_type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="mfrsId != null">
+        mfrs_id,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="regex != null">
+        regex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="siteId != null">
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="modbus != null">
+        #{modbus,jdbcType=INTEGER},
+      </if>
+      <if test="refeKey != null">
+        #{refeKey,jdbcType=INTEGER},
+      </if>
+      <if test="registerLowercase != null">
+        #{registerLowercase,jdbcType=VARCHAR},
+      </if>
+      <if test="plcCode != null">
+        #{plcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempName != null">
+        #{tempName,jdbcType=VARCHAR},
+      </if>
+      <if test="plcType != null">
+        #{plcType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="mfrsId != null">
+        #{mfrsId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regex != null">
+        #{regex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dzj.demo.project.business.mfrsplctemplate.model.MfrsPlctemplate">
+    update mfrs_plctemplate
+    <set>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="modbus != null">
+        modbus = #{modbus,jdbcType=INTEGER},
+      </if>
+      <if test="refeKey != null">
+        refe_key = #{refeKey,jdbcType=INTEGER},
+      </if>
+      <if test="registerLowercase != null">
+        register_lowercase = #{registerLowercase,jdbcType=VARCHAR},
+      </if>
+      <if test="plcCode != null">
+        plc_code = #{plcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempName != null">
+        temp_name = #{tempName,jdbcType=VARCHAR},
+      </if>
+      <if test="plcType != null">
+        plc_type = #{plcType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="mfrsId != null">
+        mfrs_id = #{mfrsId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regex != null">
+        regex = #{regex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where plctemp_id = #{plctempId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dzj.demo.project.business.mfrsplctemplate.model.MfrsPlctemplate">
+    update mfrs_plctemplate
+    set site_id = #{siteId,jdbcType=INTEGER},
+      modbus = #{modbus,jdbcType=INTEGER},
+      refe_key = #{refeKey,jdbcType=INTEGER},
+      register_lowercase = #{registerLowercase,jdbcType=VARCHAR},
+      plc_code = #{plcCode,jdbcType=VARCHAR},
+      temp_name = #{tempName,jdbcType=VARCHAR},
+      plc_type = #{plcType,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      mfrs_id = #{mfrsId,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=CHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      regex = #{regex,jdbcType=VARCHAR}
+    where plctemp_id = #{plctempId,jdbcType=INTEGER}
+  </update>
+</mapper>

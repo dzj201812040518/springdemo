@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::head"></head>
+<style>
+    .bg-center {
+        position: absolute;
+        z-index: 10000;
+        width: 100%;
+        height: 100%;
+    }
+
+    .bg-center-body {
+        padding: 20px;
+        background-color: #F2F2F2;
+        opacity: 0.8;
+        height: inherit;
+    }
+</style>
+<body>
+<div th:include="include::header"></div>
+
+<div class="bg-center">
+    <div class="bg-center-body">
+        <!--第一行-->
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">卡片面板</div>
+                    <div class="layui-card-body">
+                        卡片式面板面板通常用于非白色背景色的主体内<br>
+                        从而映衬出边框投影
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">卡片面板</div>
+                    <div class="layui-card-body">
+                        结合 layui 的栅格系统<br>
+                        轻松实现响应式布局
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--第二行-->
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">模板信息</div>
+                    <div class="layui-card-body">
+                        <div id="plctemplateTable"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container"></div>
+<div th:include="include::footer"></div>
+<script>
+    $("#plctemplateTable").load('/business/mfrsplctemplate');
+</script>
+</body>
+</html>
