@@ -41,7 +41,7 @@ public class BaseController {
 
     @GetMapping("/xingxing")
     public String xingxing(){
-        return "/xingxing/index";
+        return "xingxing/index";
     }
 
     /**

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     @GetMapping("/")
     public String xingxing(){
-        return "/index/index";
+        return "index/index";
     }
 
     @GetMapping("/index")
     public String index(){
-        return "/index/index";
+        return "index/index";
     }
 }
