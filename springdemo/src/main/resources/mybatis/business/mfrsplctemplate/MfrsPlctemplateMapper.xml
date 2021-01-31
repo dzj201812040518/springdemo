@@ -49,7 +49,7 @@
       <if test="registerLowercase != null">
         and register_lowercase = #{registerLowercase,jdbcType=VARCHAR}
       </if>
-      <if test="plcCode != null">
+      <if test="plcCode != null and plcCode != ''">
         and plc_code = #{plcCode,jdbcType=VARCHAR}
       </if>
       <if test="tempName != null and tempName != ''">
@@ -282,4 +282,32 @@
       regex = #{regex,jdbcType=VARCHAR}
     where plctemp_id = #{plctempId,jdbcType=INTEGER}
   </update>
+
+  <select id="plctemplateStatics" parameterType="com.dzj.demo.project.business.mfrsplctemplate.model.MfrsPlctemplate" resultType="java.util.Map">
+    SELECT
+        *
+    FROM
+        (
+    SELECT
+        COUNT( * ) plcCount,
+        COUNT( IF ( plc_type IS NOT NULL, TRUE, NULL ) ) bindTypeCount,
+        COUNT( IF ( regex IS NOT NULL, TRUE, NULL ) ) regexCount
+    FROM
+        mfrs_plctemplate
+    WHERE
+        del_flag = 0
+        ) aa,
+        (
+    SELECT
+        COUNT( * ) bindDeviceCount
+    FROM
+        mfrs_plctemplate mp
+        INNER JOIN mfrs_device_plc mdp ON mp.plctemp_id = mdp.plc_id
+        AND mdp.del_flag = 0
+        INNER JOIN mfrs_device md ON mdp.device_id = md.device_id
+        AND md.del_flag = 0
+    WHERE
+        mp.del_flag = 0
+        ) bb
+  </select>
 </mapper>

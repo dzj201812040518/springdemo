@@ -44,4 +44,15 @@ public class BaseController {
         return "/xingxing/index";
     }
 
+    /**
+     * [增删改返回该数据]
+     * @author xiaojie
+     * @param row [影响行数]
+     * @return [返回值]
+     * @date 2021/1/31 21:51
+     */
+    protected AjaxResult toAjax(int row){
+        return row>0?AjaxResult.success(row):AjaxResult.error();
+    }
+
 }

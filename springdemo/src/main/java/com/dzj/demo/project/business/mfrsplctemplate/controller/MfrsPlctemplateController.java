@@ -1,17 +1,19 @@
 package com.dzj.demo.project.business.mfrsplctemplate.controller;
 
+import com.dzj.demo.framework.base.AjaxResult;
 import com.dzj.demo.framework.base.BaseController;
 import com.dzj.demo.framework.base.BaseTableData;
 import com.dzj.demo.framework.table.LayUi;
 import com.dzj.demo.project.business.mfrsplctemplate.model.MfrsPlctemplate;
 import com.dzj.demo.project.business.mfrsplctemplate.service.IMfrsPlctemplateService;
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.annotation.Resource;
 
 
@@ -39,5 +41,17 @@ public class MfrsPlctemplateController extends BaseController {
         Page<MfrsPlctemplate> page = startPage();
         iMfrsPlctemplateService.selectBeanList(mfrsPlctemplate);
         return BaseTableData.getInstance(LayUi.class).covertTableData(page);
+    }
+
+    @PostMapping("editSave")
+    @ResponseBody
+    public AjaxResult editSave(MfrsPlctemplate mfrsPlctemplate) {
+        return toAjax(iMfrsPlctemplateService.updateBean(mfrsPlctemplate));
+    }
+
+    @GetMapping("plctemplateStatics")
+    @ResponseBody
+    public AjaxResult plctemplateStatics(MfrsPlctemplate mfrsPlctemplate) {
+        return AjaxResult.success(iMfrsPlctemplateService.plctemplateStatics(mfrsPlctemplate));
     }
 }

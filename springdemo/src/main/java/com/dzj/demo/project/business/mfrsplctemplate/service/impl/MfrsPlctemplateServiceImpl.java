@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiaojie
@@ -40,6 +41,12 @@ public class MfrsPlctemplateServiceImpl implements IMfrsPlctemplateService {
 
     @Override
     public List<MfrsPlctemplate> selectBeanList(MfrsPlctemplate mfrsPlctemplate) {
+        mfrsPlctemplate.setDelFlag("0");
         return mfrsPlctemplateMapper.selectBySelectiveList(mfrsPlctemplate);
+    }
+
+    @Override
+    public Map<String, Object> plctemplateStatics(MfrsPlctemplate mfrsPlctemplate) {
+        return mfrsPlctemplateMapper.plctemplateStatics(mfrsPlctemplate);
     }
 }
