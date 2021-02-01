@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    .layui-inline {
+        margin-right: 20px;
+    }
+</style>
+<div class="demoTable">
+    模板名称：
+    <div class="layui-inline">
+        <input class="layui-input" name="tempName" id="tempName" autocomplete="off">
+    </div>
+    信号模板编号：
+    <div class="layui-inline">
+        <input class="layui-input" name="plcCode" id="plcCode" autocomplete="off">
+    </div>
+    当前站点ID：
+    <div class="layui-inline">
+        <input class="layui-input" name="siteId" id="siteId" autocomplete="off">
+    </div>
+    当前企业ID：
+    <div class="layui-inline">
+        <input class="layui-input" name="mfrsId" id="mfrsId" autocomplete="off">
+    </div>
+    信号类型ID：
+    <div class="layui-inline">
+        <input class="layui-input" name="plcType" id="plcType" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
+<table class="layui-hide" id="mfrsplctemplate" lay-filter="plcTable"></table>
+<script type="text/javascript">
+    $(function () {
+
+        var prefix = '/business/mfrsplctemplate';
+        layui.use('table', function () {
+            var table = layui.table;
+            table.render({
+                elem: '#mfrsplctemplate'
+                , url: prefix + '/list'
+                , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , height: 500
+                , even: true
+                , cols: [
+                    [
+                        {
+                            field: 'plctempId',
+                            title: '信号模板ID',
+                            sort: true,
+                            align: 'center',
+                            unresize: true,
+                        },
+                        {
+                            field: 'tempName',
+                            title: '模板名称',
+                            align: 'center',
+                            unresize: true,
+                        },
+                        {
+                            field: 'plcCode',
+                            title: '信号模板编号',
+                            sort: true,
+                            align: 'center',
+                            unresize: true,
+                        },
+                        {
+                            field: 'plcType',
+                            title: '信号类型编号',
+                            align: 'center',
+                            unresize: true,
+                        },
+                        {
+                            field: 'siteId',
+                            title: '当前站点ID',
+                            align: 'center',
+                            unresize: true,
+                        },
+                        {
+                            field: 'mfrsId',
+                            title: '当前企业ID',
+                            align: 'center'
+                        },
+                        {
+                            field: 'registerLowercase',
+                            title: '寄存器',
+                            sort: true,
+                            align: 'center',
+                            unresize: true,
+                        },
+                        {
+                            field: 'createBy',
+                            title: '创建人',
+                            sort: true,
+                            align: 'center',
+                            unresize: true,
+                        },
+                        {
+                            field: 'createTime',
+                            title: '创建时间',
+                            align: 'center',
+                            unresize: true,
+                        },
+                        {
+                            field: 'regex',
+                            title: '随机范围',
+                            align: 'center',
+                            unresize: true,
+                            event: 'setSign',
+                        },
+                    ],
+                ],
+                page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                    layout: ['count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                    //,curr: 5 //设定初始在第 5 页
+                    , groups: 5 //只显示 1 个连续页码
+                    // , first: true //不显示首页
+                    // , last: false //不显示尾页
+                },
+                id: 'plcTable',
+                done: function(res, curr, count){
+
+                    plctemplateStatics();
+
+                    // //如果是异步请求数据方式，res即为你接口返回的信息。
+                    // //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    // console.log(res);
+                    //
+                    // //得到当前页码
+                    // console.log(curr);
+                    //
+                    // //得到数据总量
+                    // console.log(count);
+                }
+            });
+
+            //高级搜索重载
+            var $ = layui.$, active = {
+                reload: function () {
+                    //执行重载
+                    table.reload('plcTable', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            tempName: $('#tempName').val(),
+                            plcCode: $('#plcCode').val(),
+                            siteId: $('#siteId').val(),
+                            mfrsId: $('#mfrsId').val(),
+                            plcType: $('#plcType').val(),
+                        }
+                    }, 'data')
+                }
+            };
+
+            //搜索按钮监听
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+            //监听单元格事件
+            table.on('tool(plcTable)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'setSign') {
+                    layer.prompt({
+                        formType: 0
+                        , title: '修改 [' + data.tempName + '] 的随机范围'
+                        , value: data.regex
+                    }, function (value, index) {
+                        if (validateRegex(value)) {
+                            layer.close(index);
+                            //发送请求
+                            $.post(prefix + "/editSave", {
+                                plctempId: data.plctempId,
+                                regex: value
+                            }, function (result) {
+                                layer.msg(result.msg, {
+                                    time: 2000, //20s后自动关闭
+                                });
+                            });
+                            plctemplateStatics();
+                            //同步更新表格和缓存对应的值
+                            obj.update({
+                                regex: value
+                            });
+                        } else {
+                            //配置一个透明的询问框
+                            layer.msg('<p>' +
+                                '输的不对哦<br\>' +
+                                '随机范围格式为：“数字-数字[.数字]”<br\>' +
+                                '例如：21-22.2、21-22<br\>' +
+                                '代表：21-22之间的两位小数、21-22之间的整数' +
+                                '</p>', {
+                                time: 20000, //20s后自动关闭
+                                btn: ['我明白了']
+                            });
+                        }
+
+
+                    });
+                }
+            });
+
+            //校验随机范围
+            function validateRegex(value) {
+                var pattern = /^-?\d+-\d+(\.\d+)?$/;
+                console.log(pattern.test(value));
+                return pattern.test(value);
+            }
+
+            function plctemplateStatics() {
+                $.get(prefix + "/plctemplateStatics",{}, function (result) {
+                    var data = result.data||{};
+                    Object.keys(data).forEach((item,index,array)=>{
+                        layui.use('element', function(){
+                            var element = layui.element;
+                            //触发事件
+                            element.progress(item,data[item]+'/'+data['plcCount'])
+                            //触发事件
+                            $('#'+ item).css("width",data[item]/data['plcCount']*100+'%');
+                        });
+                    });
+                });
+            }
+        });
+
+    });
+</script>
+</html>

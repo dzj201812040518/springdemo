@@ -26,13 +26,18 @@ import javax.annotation.Resource;
 @RequestMapping("business/mfrsplctemplate")
 public class MfrsPlctemplateController extends BaseController {
     private static final String PREFIX = "business/mfrsplctemplate";
-
+    private static final String TEMPLATE = "template";
     @Resource
     private IMfrsPlctemplateService iMfrsPlctemplateService;
 
     @GetMapping()
     public String view(ModelMap modelMap) {
         return PREFIX + "/index";
+    }
+
+    @GetMapping("/loadPlcTemplateTable")
+    public String loadPlcTemplateTable(ModelMap modelMap) {
+        return PREFIX +'/'+ TEMPLATE + "/plctemplatetable";
     }
 
     @GetMapping("list")

@@ -25,3 +25,22 @@ body {
 	-moz-background-size: cover;
 
 }
+
+/**控制背景*/
+.bg-center {
+	position: absolute;
+	z-index: 10000;
+	width: 100%;
+	height: 100%;
+}
+/*控制透明度*/
+.bg-center-body {
+	padding: 20px;
+	background-color: #F2F2F2;
+	opacity: 0.8;
+	height: inherit;
+}
+/*第一行面板高度*/
+#row_1 > .layui-col-md4 > .layui-card{
+	height: 235px;
+}
