@@ -17,3 +17,5 @@ function chartLineMap(elementId, width, height, options) {
     var myChart = echarts.init(document.getElementById(elementId));
     myChart.setOption(options);
 }
+
+

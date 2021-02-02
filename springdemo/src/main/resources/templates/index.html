@@ -20,8 +20,8 @@
     <div class="nav">
         <a class="gv" href="#">建站服务</a>
         <a class="gv" href="#">仿站技术</a>
-        <a class="gv" href="#">作品案例</a>
-        <a class="gv" href="#">工 作 站</a>
+        <a class="gv" href="http://192.168.1.194:8088/">假数据入口</a>
+        <a class="gv" th:href="@{/test}">脚本测试</a>
         <a class="gv" th:href="@{/business/mfrsplctemplate}">模板管理</a>
         <a class="gv" th:href="@{/druid/login.html}">数据监控</a>
     </div>
@@ -45,6 +45,7 @@
 <!--    </audio>-->
 <!--音乐 END-->
 
-<script type="text/javascript" th:src="@{/index/js/yuzhou.js}"></script>
+<script type="text/javascript" th:src="@{/index/js/yuzhou.js}"></script><script type="text/javascript" th:src="@{/index/js/yuzhou.js}"></script>
+<div th:include="include::footer"></div>
 </body>
 </html>
