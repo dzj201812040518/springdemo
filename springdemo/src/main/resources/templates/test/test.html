@@ -2,12 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="include::head"></head>
 <body>
-<div id="main"></div>
+<div style="width: 500px;height: 500px"></div>
 <div th:include="include::footer"></div>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-
 <script type="text/javascript">
-
+    Mock.mock({
+        "string|1-10": "★"
+    })
 </script>
 </body>
 
