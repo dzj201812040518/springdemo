@@ -1,56 +1,4 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:include="include::head"></head>
-<style>
-    p.title {
-        color: #3e6ba1;
-        font-size: 72px;
-        margin: 0px;
-    }
-</style>
-<body>
-
-<!-----HEADER STAR----->
-
-<div class="header" id="demo">
-    <div th:include="include::header"></div>
-    <div class="top_logo"></div>
-    <div class="topcn" style="font:20px/18px 'microsoft yahei'; color:#0FF;text-align:center;">
-        <p>&nbsp;</p>
-        <p class="title">Dongzijie-Site</p>
-    </div>
-
-    <div class="nav">
-        <a class="gv" href="#">建站服务</a>
-        <a class="gv" href="#">仿站技术</a>
-        <a class="gv" href="#">作品案例</a>
-        <a class="gv" href="#">工 作 站</a>
-        <a class="gv" th:href="@{/xingxing}">模板管理</a>
-        <a class="gv" th:href="@{/druid/login.html}">数据监控</a>
-    </div>
-
-    <div class="canvaszz"></div>
-    <canvas id="canvas"></canvas>
-</div>
-
-
-<!-----HEADER END----->
-
-<!--用来解决视频右键菜单，用于视频上面的遮罩层 START-->
-<div class="videozz"></div>
-<!--用来解决视频右键菜单，用于视频上面的遮罩层 END-->
-
-<!--音乐 START-->
-<!--	<audio controls="true" autoplay="autoplay" class="audio">-->
-<!--        <source src="css/Music.mp3" type="audio/mp3"> -->
-<!--        <source src="css/Music.ogg" type="audio/ogg"> -->
-<!--        <source src="css/Music.aac" type="audio/mp4"> -->
-<!--    </audio>-->
-<!--音乐 END-->
-
-<div th:include="include::footer"></div>
-<script>
-    //宇宙特效
+ //宇宙特效
     "use strict";
     var canvas = document.getElementById('canvas'),
         ctx = canvas.getContext('2d'),
@@ -78,7 +26,7 @@
     ctx2.arc(half, half, half, 0, Math.PI * 2);
     ctx2.fill();
 
-    // End cache
+// End cache
 
     function random(min, max) {
         if (arguments.length < 2) {
@@ -154,9 +102,3 @@
     }
 
     animation();
-
-</script>
-
-
-</body>
-</html>

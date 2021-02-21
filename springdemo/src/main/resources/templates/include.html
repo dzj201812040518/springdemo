@@ -6,26 +6,25 @@
     <meta charset="UTF-8">
     <title>Dongzijie-site</title>
     <link rel="stylesheet" th:href="@{/lib/layui/css/layui.css}" media="all">
-    <link th:href="@{/index/css/index_style.css}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" th:href="@{/xingxing/css/style.css}">
 </head>
 <!--顶部导航-->
 <div th:fragment="header">
     <ul class="layui-nav">
         <li class="layui-nav-item"><a th:href="@{/}">首页</a></li>
-        <li class="layui-nav-item"><a th:href="@{/xingxing}">模板管理</a></li>
+        <li class="layui-nav-item"><a th:href="@{/business/mfrsplctemplate}">模板管理</a></li>
     </ul>
 </div>
 <!--引入脚本-->
 <div th:fragment="footer">
     <!--layui-->
     <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
-    <script th:src="@{/common/common.js}" charset="utf-8"></script>
     <!--jquery-->
     <script type="text/javascript" th:src="@{/lib/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/lib/echarts/js/echarts.js}"></script>
+    <script type="text/javascript" th:src="@{/lib/moke/js/moke.js}"></script>
+    <!--全局封装-->
+    <script th:src="@{/utils/common.js}" charset="utf-8"></script>
 
-    <script type="text/javascript" th:src="@{/xingxing/js/TweenMax.min.js}"></script>
-    <script type="text/javascript" th:src="@{/xingxing/js/index.js}"></script>
 
     <script>
         layui.use('element', function () {
@@ -40,16 +39,18 @@
 
 
         auto();
+
         function auto() {
             var $liNav = $('.layui-nav-item');
             //获取请求路径
             var href = window.location.pathname;
             //判断路径与请求路径相同的URL
             $liNav.each(function () {
-                if (href === $(this).find("a").attr("href")){
+                if (href === $(this).find("a").attr("href")) {
                     //有就动态追加样式
                     $(this).addClass('layui-this');
-                };
+                }
+                ;
             });
         }
     </script>

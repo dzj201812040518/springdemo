@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::head"></head>
+<link th:href="@{/index/css/index_style.css}" rel="stylesheet" type="text/css">
+<style>
+
+</style>
+<body>
+
+<!-----HEADER STAR----->
+
+<div class="header" id="demo">
+    <div th:include="include::header"></div>
+    <div class="top_logo"></div>
+    <div class="topcn" style="font:20px/18px 'microsoft yahei'; color:#0FF;text-align:center;">
+        <p>&nbsp;</p>
+        <p class="title">Dongzijie-Site</p>
+    </div>
+
+    <div class="nav">
+        <a class="gv" href="#">建站服务</a>
+        <a class="gv" href="#">仿站技术</a>
+        <a class="gv" href="http://192.168.1.194:8088/">假数据入口</a>
+        <a class="gv" th:href="@{/test}">脚本测试</a>
+        <a class="gv" th:href="@{/business/mfrsplctemplate}">模板管理</a>
+        <a class="gv" th:href="@{/druid/login.html}">数据监控</a>
+    </div>
+
+    <div class="canvaszz"></div>
+    <canvas id="canvas"></canvas>
+</div>
+
+
+<!-----HEADER END----->
+
+<!--用来解决视频右键菜单，用于视频上面的遮罩层 START-->
+<div class="videozz"></div>
+<!--用来解决视频右键菜单，用于视频上面的遮罩层 END-->
+
+<!--音乐 START-->
+<!--	<audio controls="true" autoplay="autoplay" class="audio">-->
+<!--        <source src="css/Music.mp3" type="audio/mp3"> -->
+<!--        <source src="css/Music.ogg" type="audio/ogg"> -->
+<!--        <source src="css/Music.aac" type="audio/mp4"> -->
+<!--    </audio>-->
+<!--音乐 END-->
+
+<script type="text/javascript" th:src="@{/index/js/yuzhou.js}"></script><script type="text/javascript" th:src="@{/index/js/yuzhou.js}"></script>
+<div th:include="include::footer"></div>
+</body>
+</html>
