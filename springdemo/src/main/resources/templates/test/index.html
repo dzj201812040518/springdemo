@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #testFrame{
+            margin: 40px;
+            width: 1000px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h2>消息推送框架示例：</h2>
+    <p>点击下面列表按钮，展示相应实例</p>
+    <ol>
+        <li>
+            <a th:href="@{/test/test1}" target="testFrame">使用EventSource实现消息推送</a>
+        </li>
+    </ol>
+</div>
+<iframe id="testFrame" name="testFrame">
+
+</iframe>
+</body>
+</html>
